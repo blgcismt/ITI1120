@@ -1,0 +1,252 @@
+def factorsOfN(n):
+    '''
+    (int)-->str,bool
+    Takes <n> an integer prints all of its factors and their sum and returns True
+    if the sum is smaller than <n> and False otherwise.
+    '''
+    sum_list = []
+    for i in range(2, n):
+        if n % i == 0:
+            sum_list.append(i)
+
+    print("Factors of {} = {}".format(n, str(sum_list).replace('[', ' ').replace(']', ' ')))
+    x = sum(sum_list)
+    print("Sum of the Factors = {}".format(x))
+    if x > n:
+        return False
+    else:
+        return True
+
+
+def H_diamond(n):
+    '''
+    (int)--->NoneType
+    Takes <n> as size and prints a size * 2 – 1 wide by size*2
+    tall diamond of the letter H
+    '''
+
+    for i in range(n):
+        for j in range(n - i):
+            print(" ", end="")
+        for j in range(i + 1):
+            print("H", end="")
+        for j in range(i):
+            print("H", end="")
+        print()
+
+    for i in range(n):
+        print(" " + " " * i + "H" * (2 * (n - i) - 1))
+
+
+
+
+def WaterBill2021(L, n):
+    '''
+    (int,int)-->str,float
+    Takes <L> the daily usage in liters of water and <n> number of people living in the house
+    then approximates the amount payable following the rules. Prints the amount of free water
+    for the household and returns the amount due.
+    '''
+    free_water = n * 3
+    print("amount of free water = {}".format(free_water))
+    cost = 0
+    x = (L - free_water) // 10
+    y = (L - free_water) % 10
+    if L > free_water:
+        cost += 12
+        for i in range(1, x):
+            cost += 12 + (cost * 0.03)
+        cost += y * 2
+        return cost
+
+    else:
+        return 0
+
+
+def shortest_name(n):
+    '''
+    (int)-->str
+    Takes <n> for the number of names that will be taken as input and prints the
+    shortest name with it's first letter in lowercase and the rest in uppercase,
+    if there are two names whose length are the same prints the first one and returns "There was a tie!"
+    '''
+
+    names = []
+
+    for i in range(1, n + 1):
+        names.append(input("Enter name #{}: ".format(i)))
+
+    shortest = min(names, key=len)
+    s = shortest.upper()
+    print("{}'s name is the shortest".format(s[0].lower() + s[1:]))
+
+    for i in range(len(names)):
+        for j in range(i + 1, len(names)):
+            if len(shortest) == len(names[i]) and len(names[i]) == len(names[j]):
+                return "There was a tie!"
+
+
+def vowel_bingo(s):
+    '''
+    (str)-->str
+    Take <s> a string and count the number of occurrences of vowels in it. If the string has more than 5,
+    print "whammy you lost" and exit. If all the 5 vowels are in the string print "bingo you have won" and then exit.
+    If the number of vowels are less than 5 print "playing it safe, eh?" and exit.
+    '''
+    while True:
+        x = s.lower()
+        vowels = ["a", "e", "i", "o", "u"]
+        count = 0
+
+        for i in x:
+            if i in vowels:
+                count += 1
+
+        if count > 5:
+            return "whammy you lost"
+
+
+        else:
+            for i in x:
+                if i in vowels:
+                    vowels.remove(i)
+
+        if len(vowels) == 0:
+            return "bingo you have won"
+
+
+        elif count < 5:
+            return "playing it safe, eh?"
+
+
+def test_hamzah_password(pw):
+    '''
+    (str)-->str
+    Take <pw> a string and check if the <pw> string matches the Hamzah's method of creating passwords
+    for a webiste comparing the <pw> with the required inputs. If it is the case print "Great, your password is done using hamzah’s way"
+    else print "Try again, your password was not done using hamzah’s way"
+    '''
+    pw = pw.replace(" ", "")
+    a = input("Enter your mother's year of birth while pressing shift: ")
+    b = input("Enter your name: ")
+    c = input("Enter the street number of your grandfather/grandmother house: ")
+    d = input("Enter your favorite movie: ")
+    e = input("Enter your bf/gf/bff name: ")
+    f = input("Enter something related to the website: ")
+
+    birthday = a.replace(" ", "")
+    name = b.replace(" ", "")
+    address = c.replace(" ", "")
+    movie = d.replace(" ", "")
+    paramore = e.replace(" ", "")
+    related = f.replace(" ", "")
+
+    pw = pw.lower()
+    name = name.lower()
+    movie = movie.lower()
+    paramore = paramore.lower()
+    related = related.lower()
+
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    new_name = ""
+    new_movie = ""
+    new_paramore = ""
+    new_related = ""
+    for i in range(len(name)):
+        if name[i] not in vowels:
+            new_name = new_name + name[i]
+    for i in range(len(movie)):
+        if movie[i] not in vowels:
+            new_movie = new_movie + movie[i]
+    for i in range(len(paramore)):
+        if paramore[i] not in vowels:
+            new_paramore = new_paramore + paramore[i]
+    for i in range(len(related)):
+        if related[i] not in vowels:
+            new_related = new_related + related[i]
+
+    if pw[0:2] != new_name[0:2]:
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif (pw[2] not in birthday) or (pw[3] not in address):
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif pw[4:6] != new_movie[-2:]:
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif (pw[6] not in birthday) or (pw[7] not in address):
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif pw[8:10] != new_paramore[0:2]:
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif (pw[10] not in birthday) or (pw[11] not in address):
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif pw[12:14] != new_related[-2:]:
+        return "Try again, your password was not done using hamzah’s way"
+
+    elif pw[14] not in birthday:
+        return "Try again, your password was not done using hamzah’s way"
+
+    else:
+        return "Great, your password is done using hamzah’s way"
+
+
+def lossy_encryption(s):
+    '''
+    (str)-->str
+    Take <s> a string and encrypt it by dividing into pieces of three and deleting the middle character and reversing the rest.
+    If the length of <s> is not a multiple of 3 add the remaining parts to the end and return the encrypted version.
+    '''
+    s.replace(" ", "")
+
+    three = []
+    extras = []
+
+    x = [s[i:i + 3] for i in range(0, len(s), 3)]
+
+    for i in x:
+
+        if len(i) == 3:
+            three.append(i)
+
+        elif len(i) < 3:
+            extras.append(i)
+
+    final = []
+
+    for i in three:
+        i = i[:1] + i[2:]
+        i = i[::-1]
+        final.append(i)
+
+    string1 = ""
+    for i in final:
+        string1 += str(i)
+
+    string2 = ""
+    for i in extras:
+        string2 += str(i)
+
+    return ("Your Encrypted String is : {}".format(string1 + string2))
+
+def lossy_decryption(s):
+  '''
+  (str)-->str
+  Take <s> a string and return a decrypted version similar to the original but with a "*" instead of deleted
+  characters.
+  '''
+
+  a = [s[i:i+2] for i in range(0, len(s), 2)]
+
+  for i in range(len(a)):
+    a[i] = a[i][::-1]
+
+  for i in range(len(a)):
+    a[i] = a[i][0] + "*" + a[i][1]
+
+  string = ""
+  for i in a:
+      string += str(i)
+  return ("Your decrypted String is: {}".format(string)) 
